@@ -1,0 +1,22 @@
+[tool.ruff]
+
+fix = true
+exclude = [
+    ".venv",
+    "build",
+    "dist",
+]
+
+[tool.ruff.lint]
+
+select = [
+    "E",   # pycodestyle errors
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "TCH", # type-checking rules
+    "ANN", # require annotations
+]
+
+ignore = ["ANN401"]
