@@ -1,5 +1,8 @@
 aws-cdk-lib>=2.225
 constructs>=10.4
 boto3>=1.40
-discord>=2.3
 aws-lambda-typing>=2.20
+mypy-boto3-ec2>=1.41
+httpx>=0.28
+discord>=2.3
+boto3>=1.40
