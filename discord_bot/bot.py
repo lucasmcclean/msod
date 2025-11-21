@@ -5,18 +5,18 @@ import discord
 import httpx
 from discord import app_commands
 
-TOKEN: Final[str] = os.environ["DISCORD_TOKEN"]
-GUILD_ID: Final[int] = int(os.environ["DISCORD_GUILD_ID"])
+TOKEN: Final[str] = os.getenv("DISCORD_TOKEN", "uh oh")
+GUILD_ID: Final[int] = int(os.getenv("DISCORD_GUILD_ID", "whoops"))
 
-START_URL: Final[str] = os.environ["START_API_URL"]
-STOP_URL: Final[str] = os.environ["STOP_API_URL"]
+START_URL: Final[str] = os.getenv("START_API_URL", "oh no")
+STOP_URL: Final[str] = os.getenv("STOP_API_URL", "not this too")
 
 intents = discord.Intents.default()
 bot = discord.Client(intents=intents)
 tree = app_commands.CommandTree(bot)
 
 
-async def call_api(url: str) -> str:
+async def invoke_lambda(url: str) -> str:
     async with httpx.AsyncClient(timeout=20.0) as client:
         resp = await client.post(url)
         resp.raise_for_status()
@@ -36,7 +36,7 @@ async def on_ready() -> None:
 )
 async def mc_start(interaction: discord.Interaction) -> None:
     await interaction.response.send_message("Starting server…")
-    result = await call_api(START_URL)
+    result = await invoke_lambda(START_URL)
     await interaction.followup.send(f"```json\n{result}\n```")
 
 
@@ -47,7 +47,7 @@ async def mc_start(interaction: discord.Interaction) -> None:
 )
 async def mc_stop(interaction: discord.Interaction) -> None:
     await interaction.response.send_message("Stopping server…")
-    result = await call_api(STOP_URL)
+    result = await invoke_lambda(STOP_URL)
     await interaction.followup.send(f"```json\n{result}\n```")
 
 

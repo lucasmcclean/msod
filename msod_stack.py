@@ -27,7 +27,8 @@ SERVER_MACHINE = ec2.MachineImage.latest_amazon_linux2023()
 
 class MsodStack(Stack):
     """
-    Resource stack for an on-demand Minecraft EC2 server started and stopped via Lambda.
+    Resource stack for an on-demand Minecraft EC2 server started and stopped via
+    Lambda.
     """
 
     def __init__(
